@@ -1,28 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>leaflet-image-overlay test</title>
+	<title>Leaflet.js Image Overlay Example</title>
 	<meta charset="utf-8" />
-
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.4/leaflet.css" />
 </head>
 <body>
+	<!-- Init Map -->
 	<div id="map" style="width: 900px; height: 900px;"></div>
 
+	<!-- Javascript -->
 	<script src="http://cdn.leafletjs.com/leaflet-0.4.4/leaflet.js"></script>
 	<script>
 
-		var map = L.map('map').setView([51.500, -0.100], 14);
+		var map = L.map('map', {
+			minZoom: 15,
+			maxZoom: 18,
+		}).setView([51.500, -0.100], 14);
+		    
 
-		/* Instead of a tile layer, use a bitmap image */
+		// Replace Tile Layer with Image
 		var imageUrl = 'boston.jpg';
 
+		// Define image position on map
 		var imageBounds = [[51.490, -0.122], [51.510, -0.078]];
 
+		// Add image to map
 		L.imageOverlay(imageUrl, imageBounds).addTo(map);
 
+		// Try a basic Leaflet polygon
 		L.polygon([
 			[51.509, -0.08],
 			[51.503, -0.06],
@@ -30,10 +37,9 @@
 		]).addTo(map).bindPopup("I am a polygon.");
 
 		function onMapClick(e) {
-			popup
-				.setLatLng(e.latlng)
-				.setContent("You clicked the map at " + e.latlng.toString())
-				.openOn(map);
+			popup.setLatLng(e.latlng)
+			  .setContent("You clicked the map at " + e.latlng.toString())
+			  .openOn(map);
 		}
 
 		map.on('click', onMapClick);
