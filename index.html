@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>leaflet-image-overlay test</title>
+	<meta charset="utf-8" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.4/leaflet.css" />
+</head>
+<body>
+	<div id="map" style="width: 900px; height: 900px;"></div>
+
+	<script src="http://cdn.leafletjs.com/leaflet-0.4.4/leaflet.js"></script>
+	<script>
+
+		var map = L.map('map').setView([51.500, -0.100], 14);
+
+		/* Instead of a tile layer, use a bitmap image */
+		var imageUrl = 'boston.jpg';
+
+		var imageBounds = [[51.490, -0.122], [51.510, -0.078]];
+
+		L.imageOverlay(imageUrl, imageBounds).addTo(map);
+
+		L.polygon([
+			[51.509, -0.08],
+			[51.503, -0.06],
+			[51.51, -0.047]
+		]).addTo(map).bindPopup("I am a polygon.");
+
+		function onMapClick(e) {
+			popup
+				.setLatLng(e.latlng)
+				.setContent("You clicked the map at " + e.latlng.toString())
+				.openOn(map);
+		}
+
+		map.on('click', onMapClick);
+
+	</script>
+</body>
+</html>
