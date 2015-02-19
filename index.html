@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
     <style type="text/css">
-    #points {
-        border: 2px solid red;
+    .leaflet-container {
+        background-color: rgba(255,0,0,0.0);
     }
     </style>
 </head>
@@ -27,9 +27,10 @@
     <!-- Load in Sample Data -->
     <script src="data.js"></script>
     <script>
-
+    $(document).ready(function(){
+        
         // Save window size.
-        var windowWidth  = $(document).width() / 2;
+        var windowWidth  = $(document).width();
         var windowHeight = $(document).height();
 
         /*************************
@@ -68,7 +69,7 @@
          *************************/
         
         // Date subset of data (for testing)
-        sample_data = sample_data.splice(0, 4000);
+        // sample_data = sample_data.splice(0, 4000);
 
         // Validate data. Ignore NPC interactions, etc
         sample_data = _.filter(sample_data, function(p){
@@ -77,19 +78,23 @@
 
         // Extract relevant Data
         sample_data = _.map(sample_data, function(p){
-            return { x : p[3], y : p[4] }
-        })
-
-        // Add layers when the map is ready.
-        map.on('ready', function(){
-            plot(map, sample_data);
+            return { x : p[3] / 10, y : p[4] / 10 }
         })
 
         // Re-add layers when the map has changed.
-        map.on('viewreset', function(){
-            plot(map, sample_data);
-        })
+        // map.on('viewreset', function(){
+        //     console.log("VIEWRESET")
+        //     plot(map, sample_data);
+        // })
 
+        _.each(sample_data, function(p){
+            var circle = L.circle([p.x / 200, p.y / 200], 10, {
+                color: 'black',
+                fillColor: '#000',
+                fillOpacity: 1,
+            }).addTo(map);
+        });
+    });
     </script>
 </body>
 </html>

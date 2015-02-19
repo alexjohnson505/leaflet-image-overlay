@@ -4,18 +4,17 @@ function plot(map, points){
     // Layer Settings
     layer = {
       color: "#000",
-      id : "points"
     }
 
     // Clear layer if previously existing.
-    d3.select('#' + layer.id).remove();
+    d3.select('#points').remove();
 
     // Select leaflet's 'overlay pane' layer. Leaflet will 
     // auto-repositions the overlay panes upon map movement.
 
     // Create an SVG elemnt for plotting points on
     var svg = d3.select(map.getPanes().overlayPane).append("svg")
-    .attr('id', layer.id)
+    .attr('id', 'points')
     .attr("class", "leaflet-zoom-hide")
 
     // Fix the size of our SVG layer to match the leaflet map
@@ -65,14 +64,13 @@ function plot(map, points){
     //   return true;
     // });
 
-
   svg.selectAll("circle")
     .data(points)
     .enter().append("circle")
     .attr("class", "point")
 
     // Position each circle with the x/y position.
-    .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+    // .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
     
     // Visual Settings
     // .style('fill', function(d) { return layer.color } )
