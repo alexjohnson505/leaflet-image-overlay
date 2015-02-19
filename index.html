@@ -5,6 +5,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    <style type="text/css">
+    #points {
+        border: 2px solid red;
+    }
+    </style>
 </head>
 <body>
     <!-- Init Map -->
@@ -24,7 +29,7 @@
     <script>
 
         // Save window size.
-        var windowWidth  = $(document).width();
+        var windowWidth  = $(document).width() / 2;
         var windowHeight = $(document).height();
 
         /*************************
@@ -37,22 +42,23 @@
 
         // Define Map Parameters
         var map = L.map('map', {
-            minZoom: 4,
+            minZoom: 7,
             maxZoom: 10,
-        }).setView([45, -50], 1);
+        }).setView([2.5, 4], 1);
 
         // Define map style Id (mapbox.com)
         var mapID = "stephalee.aec4ccea"
 
-        L.tileLayer('http://{s}.tiles.mapbox.com/v3/' + mapID + '/{z}/{x}/{y}.png', {
-            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-        }).addTo(map);
+        // L.tileLayer('http://{s}.tiles.mapbox.com/v3/' + mapID + '/{z}/{x}/{y}.png', {
+        //     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+        // }).addTo(map);
             
         // Replace Tile Layer with Image
         var imageUrl = 'boston.jpg';
 
         // Define image position on map
-        var imageBounds = [[40, -45], [50, -50]];
+        var imageSize = [8552, 5521]
+        var imageBounds = [[0, 0], [imageSize[1] / 1000, imageSize[0] / 1000]];
 
         // Add image overlay to map
         L.imageOverlay(imageUrl, imageBounds).addTo(map);
